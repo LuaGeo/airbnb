@@ -4,12 +4,17 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
+
+// ---->> Screens <<---- //
+
 import HomeScreen from "./containers/HomeScreen";
 import ProfileScreen from "./containers/ProfileScreen";
 import SignInScreen from "./containers/SignInScreen";
 import SignUpScreen from "./containers/SignUpScreen";
 import SettingsScreen from "./containers/SettingsScreen";
 import SplashScreen from "./containers/SplashScreen";
+
+import logo from "./assets/logo-airbnb.png";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -37,6 +42,7 @@ export default function App() {
       // This will switch to the App screen or Auth screen and this loading
       // screen will be unmounted and thrown away.
       setUserToken(userToken);
+      console.log(userToken);
 
       setIsLoading(false);
     };
@@ -55,10 +61,10 @@ export default function App() {
         {userToken === null ? (
           // No token found, user isn't signed in
           <>
-            <Stack.Screen name="SignIn">
+            <Stack.Screen name="SignIn" options={{ headerShown: false }}>
               {() => <SignInScreen setToken={setToken} />}
             </Stack.Screen>
-            <Stack.Screen name="SignUp">
+            <Stack.Screen name="SignUp" options={{ headerShown: false }}>
               {() => <SignUpScreen setToken={setToken} />}
             </Stack.Screen>
           </>
@@ -86,13 +92,9 @@ export default function App() {
                     <Stack.Navigator>
                       <Stack.Screen
                         name="Home"
-                        options={{
-                          title: "My App",
-                          headerStyle: { backgroundColor: "red" },
-                          headerTitleStyle: { color: "white" },
-                        }}
+                        options={{ headerShown: false }}
                       >
-                        {() => <HomeScreen />}
+                        {() => <HomeScreen userToken={userToken} logo={logo} />}
                       </Stack.Screen>
 
                       <Stack.Screen
@@ -127,7 +129,12 @@ export default function App() {
                           title: "Settings",
                         }}
                       >
-                        {() => <SettingsScreen setToken={setToken} />}
+                        {() => (
+                          <SettingsScreen
+                            setToken={setToken}
+                            userToken={userToken}
+                          />
+                        )}
                       </Stack.Screen>
                     </Stack.Navigator>
                   )}
