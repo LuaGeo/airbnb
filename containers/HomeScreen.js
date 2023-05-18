@@ -17,8 +17,8 @@ export default function HomeScreen({ userToken }) {
           "https://lereacteur-bootcamp-api.herokuapp.com/api/airbnb/rooms"
         );
         setData(response.data);
-        console.log(response);
-        console.log(data);
+        // console.log(response);
+        // console.log(data);
         setIsLoading(false);
       } catch (error) {
         console.log(error);
@@ -52,6 +52,8 @@ export default function HomeScreen({ userToken }) {
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
+    paddingHorizontal: 10,
+    paddingVertical: 5,
   },
   line: {
     height: 1,
