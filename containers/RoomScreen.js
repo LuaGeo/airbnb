@@ -1,35 +1,46 @@
+import { RoomCard } from "../components/RoomCard";
 import {
-  View,
   Text,
-  ImageBackground,
+  View,
   StyleSheet,
   useWindowDimensions,
-  Image,
-  TouchableOpacity,
+  ImageBackground,
 } from "react-native";
-
-import { useNavigation } from "@react-navigation/native";
-
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { useRoute } from "@react-navigation/native";
 import { displayStar } from "../utils/displayStars";
 
-export const RoomCard = () => {
-  const navigation = useNavigation();
+export const RoomScreen = () => {
+  const { params } = useRoute();
   const styles = useStyle();
+  const [room, setRoom] = useState();
 
-  // console.log(item);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `https://lereacteur-bootcamp-api.herokuapp.com/api/airbnb/rooms/${params.id}`
+        );
+        // setRoom(response);
+        console.log(response);
+      } catch (error) {
+        console.log(error.response);
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
-    <TouchableOpacity
-      onPress={() => {
-        navigation.navigate("Room", { id: item._id });
-      }}
-    >
-      <View style={styles.container}>
+    <View>
+      <Text>Rooms page</Text>
+      {/* <View style={styles.container}>
         <ImageBackground
-          source={{ uri: item.photos[0].url }}
+          source={{ uri: data.photos[0].url }}
           style={styles.img}
         >
           <View style={styles.priceContainer}>
-            <Text style={styles.price}>{item.price} €</Text>
+            <Text style={styles.price}>{data.price} €</Text>
           </View>
         </ImageBackground>
       </View>
@@ -37,23 +48,24 @@ export const RoomCard = () => {
       <View style={styles.detailsContainer}>
         <View style={{ width: "74%", gap: 20 }}>
           <Text style={{ fontSize: 24 }} numberOfLines={1}>
-            {item.title}
+            {data.title}
           </Text>
           <View style={styles.reviewsContainer}>
-            <Text>{displayStar(item.ratingValue)}</Text>
+            <Text>{displayStar(data.ratingValue)}</Text>
             <Text style={{ fontSize: 18, color: "#c9c9c7" }}>
-              {item.reviews} reviews
+              {data.reviews} reviews
             </Text>
           </View>
         </View>
         <Image
-          source={{ uri: item.user.account.photo.url }}
+          source={{ uri: data.user.account.photo.url }}
           style={styles.userImg}
         />
-      </View>
-    </TouchableOpacity>
+      </View> */}
+    </View>
   );
 };
+
 const useStyle = () => {
   const { height, width } = useWindowDimensions();
 

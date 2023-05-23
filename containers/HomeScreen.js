@@ -17,7 +17,7 @@ export default function HomeScreen({ userToken }) {
           "https://lereacteur-bootcamp-api.herokuapp.com/api/airbnb/rooms"
         );
         setData(response.data);
-        // console.log(response);
+        console.log(response);
         // console.log(data);
         setIsLoading(false);
       } catch (error) {
@@ -28,7 +28,7 @@ export default function HomeScreen({ userToken }) {
   }, []);
 
   return isLoading ? (
-    <ActivityIndicator size="large" />
+    <ActivityIndicator size="small" />
   ) : (
     <View style={styles.container}>
       <Image
@@ -43,6 +43,8 @@ export default function HomeScreen({ userToken }) {
           renderItem={({ item }) => {
             return <RoomCard item={item} />;
           }}
+          showsVerticalScrollIndicator={false}
+          ItemSeparatorComponent={() => <Text style={styles.line}></Text>}
         />
       </View>
     </View>

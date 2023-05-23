@@ -14,6 +14,7 @@ import SignInScreen from "./containers/SignInScreen";
 import SignUpScreen from "./containers/SignUpScreen";
 import SettingsScreen from "./containers/SettingsScreen";
 import SplashScreen from "./containers/SplashScreen";
+import { RoomScreen } from "./containers/RoomScreen";
 
 import logo from "./assets/logo-airbnb.png";
 
@@ -96,6 +97,15 @@ export default function App() {
                         options={{ headerShown: false }}
                       >
                         {() => <HomeScreen userToken={userToken} logo={logo} />}
+                      </Stack.Screen>
+
+                      <Stack.Screen
+                        name="Room"
+                        options={{
+                          title: "Room",
+                        }}
+                      >
+                        {() => <RoomScreen />}
                       </Stack.Screen>
 
                       <Stack.Screen
